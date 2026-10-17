@@ -1,0 +1,54 @@
+{
+  "phase": 4,
+  "target": "Selling_Price",
+  "features": [
+    "Present_Price",
+    "Driven_kms",
+    "Car_Age",
+    "Owner",
+    "Fuel_Type",
+    "Selling_type",
+    "Transmission"
+  ],
+  "numerical_features": [
+    "Present_Price",
+    "Driven_kms",
+    "Car_Age",
+    "Owner"
+  ],
+  "categorical_features": [
+    "Fuel_Type",
+    "Selling_type",
+    "Transmission"
+  ],
+  "random_state": 42,
+  "test_size": 0.2,
+  "training_rows": 239,
+  "reserved_test_rows": 60,
+  "cross_validation": {
+    "strategy": "KFold",
+    "n_splits": 5,
+    "shuffle": true,
+    "random_state": 42,
+    "data_used": "Training partition only (test set held out)"
+  },
+  "selection_metric": "Lowest mean cross-validation RMSE",
+  "selected_model": "Random Forest",
+  "reference_year": 2018,
+  "test_partition_used_for_model_selection": false,
+  "test_partition_evaluated_in_phase4": false,
+  "scikit_learn_version": "1.9.1",
+  "champion_cv_metrics": {
+    "cv_rmse_mean": 1.5765688758604557,
+    "cv_rmse_std": 0.8708469126455773,
+    "cv_mae_mean": 0.7351997932520918,
+    "cv_mae_std": 0.21227201342048044,
+    "cv_r2_mean": 0.8925959728383915,
+    "cv_r2_std": 0.07162283331159977
+  },
+  "artifacts": {
+    "model": "C:\\CHATBOT\\Car Price Prediction Model\\outputs\\phase4\\best_model.joblib",
+    "cross_validation_results": "C:\\CHATBOT\\Car Price Prediction Model\\outputs\\phase4\\cross_validation_results.csv",
+    "metadata": "C:\\CHATBOT\\Car Price Prediction Model\\outputs\\phase4\\training_metadata.json"
+  }
+}

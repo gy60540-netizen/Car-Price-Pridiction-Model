@@ -1,0 +1,120 @@
+{
+  "decisions": [
+    "Normalized whitespace in categorical columns (cleaned 5 padded values across 1 column(s)).",
+    "Removed 2 exact duplicate row(s) (indices: [17, 93]). Modeling dataset reduced from 301 to 299 records.",
+    "Preserved all legitimate domain outliers (luxury price points and high-mileage records) without automated trimming.",
+    "Formulated 'Car_Age' feature using reference year 2018 (range: [0, 15] years).",
+    "Designated 'Selling_Price' strictly as target (excluded from predictors). Excluded 'Car_Name' from baseline predictor matrix to prevent high-cardinality overfitting."
+  ],
+  "initial_row_count": 301,
+  "initial_column_count": 9,
+  "whitespace_normalization": {
+    "columns_checked": [
+      "Car_Name",
+      "Fuel_Type",
+      "Selling_type",
+      "Transmission"
+    ],
+    "affected_counts": {
+      "Car_Name": 5
+    },
+    "policy": "Stripped leading/trailing whitespace without merging distinct model categories or altering semantics."
+  },
+  "deduplication": {
+    "duplicates_removed_count": 2,
+    "duplicate_row_indices_removed": [
+      17,
+      93
+    ],
+    "duplicate_groups": [
+      "Row 17 duplicates Row 15 (ertiga 2016)",
+      "Row 93 duplicates Row 51 (fortuner 2015)"
+    ],
+    "policy": "Removed second instance of exact duplicate rows for modeling dataset to prevent train-test split leakage; original raw CSV remains unmodified."
+  },
+  "missing_and_infinite_audit": {
+    "null_counts": {
+      "Car_Name": 0,
+      "Year": 0,
+      "Selling_Price": 0,
+      "Present_Price": 0,
+      "Driven_kms": 0,
+      "Fuel_Type": 0,
+      "Selling_type": 0,
+      "Transmission": 0,
+      "Owner": 0
+    },
+    "inf_counts": {
+      "Year": 0,
+      "Selling_Price": 0,
+      "Present_Price": 0,
+      "Driven_kms": 0,
+      "Owner": 0
+    },
+    "status": "PASS (0 missing values, 0 infinite values)"
+  },
+  "outlier_handling_policy": {
+    "Selling_Price_outliers": "17 statistical upper outliers (e.g. Land Cruiser, Fortuner) retained. These represent legitimate luxury vehicle depreciation dynamics.",
+    "Present_Price_outliers": "14 statistical upper outliers retained as valid high-tier vehicle listings.",
+    "Driven_kms_outliers": "8 upper outliers retained, including 500,000 km Activa delivery scooter. Not automatically dropped to preserve real-world mileage dispersion; robust/tree models handle without trimming.",
+    "policy": "No automated outlier trimming applied. Retaining genuine market variation is essential for unbiased regression modeling."
+  },
+  "feature_engineering": {
+    "new_feature": "Car_Age",
+    "formula": "Car_Age = 2018 - Year",
+    "reference_year": 2018,
+    "reference_year_rationale": "Set to dataset max manufacturing year (2018) to prevent lookahead calendar bias and guarantee non-negative vehicle age.",
+    "min_age": 0,
+    "max_age": 15,
+    "mean_age": 4.38,
+    "policy": "Derives intuitive vehicle age metric (newer cars = low age, older cars = high age) for monotonic depreciation modeling."
+  },
+  "feature_architecture": {
+    "target_column": "Selling_Price",
+    "target_stats": {
+      "min": 0.1,
+      "max": 35.0,
+      "mean": 4.5896,
+      "median": 3.51,
+      "std": 4.9842
+    },
+    "numerical_predictors": [
+      "Present_Price",
+      "Driven_kms",
+      "Car_Age",
+      "Owner"
+    ],
+    "categorical_predictors": [
+      "Fuel_Type",
+      "Selling_type",
+      "Transmission"
+    ],
+    "excluded_from_baseline": [
+      "Car_Name",
+      "Year"
+    ],
+    "exclusion_justification": {
+      "Car_Name": "High cardinality (98 distinct models in 299 rows). One-hot encoding creates excessive dimensionality (98 sparse columns), leading to severe overfitting. Showroom asset value ('Present_Price') serves as the continuous proxy for vehicle market segment.",
+      "Year": "Fully captured with inverse sign by engineered 'Car_Age'. Including both would induce exact collinearity."
+    }
+  },
+  "final_row_count": 299,
+  "final_column_count": 10,
+  "final_columns": [
+    "Car_Name",
+    "Year",
+    "Selling_Price",
+    "Present_Price",
+    "Driven_kms",
+    "Fuel_Type",
+    "Selling_type",
+    "Transmission",
+    "Owner",
+    "Car_Age"
+  ],
+  "pipeline_blueprint": {
+    "description": "scikit-learn ColumnTransformer (StandardScaler on numericals + OneHotEncoder(drop='first') on categoricals)",
+    "fitted_on_full_dataset": false,
+    "anti_leakage_note": "Pipeline is strictly unfitted. It will be fitted exclusively on training splits in Phase 4 modeling."
+  }
+}

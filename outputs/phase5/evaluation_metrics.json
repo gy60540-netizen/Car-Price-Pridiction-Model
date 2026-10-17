@@ -1,0 +1,41 @@
+{
+  "phase": 5,
+  "selected_model": "Random Forest",
+  "model_artifact_sha256": "cd1d6160fba8288755b83a3b64e0ed3c3e33365705e4af615c92e27a11eccb3a",
+  "test_sample_count": 60,
+  "random_state": 42,
+  "test_size": 0.2,
+  "test_metrics": {
+    "RMSE": 3.166798666110314,
+    "MAE": 1.3567246073633155,
+    "Median_Absolute_Error": 0.40812433201057896,
+    "R2": 0.6108907865364752
+  },
+  "phase4_cv_context": {
+    "cv_rmse_mean": 1.5765688758604557,
+    "cv_mae_mean": 0.7351997932520918,
+    "cv_r2_mean": 0.8925959728383915,
+    "note": "Cross-validation scores were derived strictly from the 5 training folds."
+  },
+  "metric_definitions_and_interpretations": {
+    "RMSE": "Root Mean Squared Error: Measures standard deviation of residuals; penalizes large errors. Lower is better.",
+    "MAE": "Mean Absolute Error: Average absolute prediction error in dataset price units. Lower is better.",
+    "Median_Absolute_Error": "Median Absolute Error: Robust central tendency of error, unaffected by high-leverage outliers. Lower is better.",
+    "R2": "Coefficient of Determination: Relative proportion of target variance explained. Higher is better; not a percentage accuracy.",
+    "MAPE_omission_rationale": "MAPE is omitted as primary metric because near-zero target values cause distorted percentage blow-ups."
+  },
+  "leakage_and_integrity_audit": {
+    "test_set_used_for_tuning": false,
+    "test_set_used_for_model_selection": false,
+    "model_retrained_in_phase5": false,
+    "evaluated_holdout_rows": 60,
+    "model_artifact_verified_sha256": "cd1d6160fba8288755b83a3b64e0ed3c3e33365705e4af615c92e27a11eccb3a"
+  },
+  "artifacts": {
+    "predictions_csv": "C:\\CHATBOT\\Car Price Prediction Model\\outputs\\phase5\\test_predictions.csv",
+    "actual_vs_predicted_plot": "C:\\CHATBOT\\Car Price Prediction Model\\outputs\\phase5\\actual_vs_predicted.png",
+    "residual_diagnostics_plot": "C:\\CHATBOT\\Car Price Prediction Model\\outputs\\phase5\\residual_diagnostics.png",
+    "evaluation_metrics_json": "C:\\CHATBOT\\Car Price Prediction Model\\outputs\\phase5\\evaluation_metrics.json",
+    "phase5_report_md": "C:\\CHATBOT\\Car Price Prediction Model\\outputs\\phase5\\PHASE5_REPORT.md"
+  }
+}

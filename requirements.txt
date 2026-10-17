@@ -1,0 +1,13 @@
+# CodeAlpha Data Science Internship - Task 3: Car Price Prediction Model
+# Minimal, reproducible dependency file based on verified project imports
+# Target Python Environment: Python 3.13.x (tested on 3.13.13)
+# Note: The Phase 4 champion model artifact ('outputs/phase4/best_model.joblib')
+# was serialized with scikit-learn 1.9.1.
+
+scikit-learn==1.9.1
+pandas==3.0.3
+numpy==2.5.0
+scipy==1.18.1
+matplotlib==3.11.2
+seaborn==0.13.2
+joblib==1.6.0
